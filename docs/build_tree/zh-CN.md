@@ -34,7 +34,7 @@
 
 + 参数
 
-  + `input`：一个 `std::optional<int>` 的列表（作为 `std::vector` 储存）。该列表可以由函数 [`leetcode::get_nodes`](#user-content-leetcode::get_nodes) 或 [`leetcode::get_nodes_by_regex`](#user-content-leetcode::get_nodes_by_regex) 生成。  
+  + `input`：一个 `std::optional<int>` 的列表（作为 `std::vector` 储存）。该列表可以由函数 `leetcode::get_nodes` 或 `leetcode::get_nodes_by_regex` 生成。  
 
 + 返回值
 
@@ -77,5 +77,5 @@
 
 + 描述  
 
-  本函数的功能与函数 [`leetcode::get_nodes`](#user-content-leetcode::get_nodes) 相同。但本函数使用正则表达式 `std::regex` 实现。总的来说，使用此函数编译速度较慢。  
+  本函数的功能与函数 `leetcode::get_nodes` 相同。但本函数使用正则表达式 `std::regex` 实现。总的来说，使用此函数编译速度较慢。  
 
