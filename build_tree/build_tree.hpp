@@ -57,7 +57,11 @@ inline tree_node* build_tree(std::vector<std::optional<int>> input)
                 leaves.emplace(tmp_node->left);
             }
             ++itr;
-            if (itr != end(input) && itr->has_value())
+            if (itr == end(input))
+            {
+                break;
+            }
+            else if (itr->has_value())
             {
                 tmp_node->right = new tree_node(itr->value());
                 leaves.emplace(tmp_node->right);
@@ -71,9 +75,6 @@ inline tree_node* build_tree(std::vector<std::optional<int>> input)
     }
     return head;
 }
-
-
-// Use regex to simplify this function?
 
 inline std::vector<std::optional<int>> get_nodes(const std::string& input)
 {
@@ -97,7 +98,7 @@ inline std::vector<std::optional<int>> get_nodes(const std::string& input)
         }
         else
         {
-            auto end_pos = input.find_first_not_of("0123456789", find_pos);
+            auto end_pos = input.find_first_not_of("-0123456789", find_pos);
             if (end_pos == find_pos) throw std::invalid_argument("The input string is invalid!");
             auto val = std::stoi(input.substr(find_pos, end_pos - find_pos));
             ret.emplace_back(val);
@@ -124,7 +125,7 @@ inline std::vector<std::optional<int>> get_nodes_by_regex(const std::string& inp
         return {};
     }
 
-    std::regex rgx_num(" *[0-9]+ *");
+    std::regex rgx_num(" *-?[0-9]+ *");
     std::regex rgx_null(" *null *");
     std::string::size_type pos = 1;
     std::vector<std::optional<int>> ret;

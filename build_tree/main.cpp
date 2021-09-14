@@ -83,7 +83,8 @@ int main()
 {
     try
     {
-        auto lst = leetcode::get_nodes("[1,5,8, 9,null,10,7,   null,null,null,9,null,8,8,null]"); // Non-regex version.
+        auto lst = leetcode::get_nodes("[1,5,-8, 9,null,10,7,   null,null,null,-9,null,8,8,null]"); // Non-regex version.
+
         // auto lst = leetcode::get_nodes_by_regex("[1,5,8, 9,null,10,7,   null,null,null,9,null,8,8,null]"); // Regex version, whose compilation is too slow!
 
         for (const auto& itms : lst)
