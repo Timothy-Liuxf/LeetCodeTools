@@ -13,6 +13,7 @@
 #include <utility>
 #include <stdexcept>
 #include <string>
+#include <regex>
 
 #define LEETCODE_NAMESPACE_BEGIN namespace leetcode {
 #define LEETCODE_NAMESPACE_END }
@@ -107,6 +108,51 @@ inline std::vector<std::optional<int>> get_nodes(const std::string& input)
         if (input[pos] != ',') throw std::invalid_argument("The input string is invalid!");
         ++pos;
     }
+    return ret;
+}
+
+// Regex version
+
+inline std::vector<std::optional<int>> get_nodes_by_regex(const std::string& input)
+{
+    if (input.size() < 2 || input.front() != '[' || input.back() != ']')
+    {
+        throw std::invalid_argument("The input string is invalid!");
+    }
+    if (input.find_first_not_of(' ', 1) == input.size() - 1)
+    {
+        return {};
+    }
+
+    std::regex rgx_num(" *[0-9]+ *");
+    std::regex rgx_null(" *null *");
+    std::string::size_type pos = 1;
+    std::vector<std::optional<int>> ret;
+
+    while (pos < input.size() - 1)
+    {
+        auto end_pos = input.find_first_of(',', pos);
+        if (end_pos == std::string::npos)
+        {
+            end_pos = input.size() - 1;
+        }
+
+        if (std::regex_match(begin(input) + pos, begin(input) + end_pos, rgx_num))
+        {
+            ret.emplace_back(stoi(input.substr(pos, end_pos - pos)));
+        }
+        else if (std::regex_match(begin(input) + pos, begin(input) + end_pos, rgx_null))
+        {
+            ret.emplace_back(std::nullopt);
+        }
+        else
+        {
+            throw std::invalid_argument("The input string is invalid!");
+        }
+
+        pos = end_pos + 1;
+    }
+
     return ret;
 }
 
